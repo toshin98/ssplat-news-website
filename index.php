@@ -36,7 +36,7 @@
 	</head>
 	<body>
 		<script>
-function myFunction(x) {
+function myFunction(x) {   // liking function
   x.style.color = "blue";
 }
 </script>
@@ -46,7 +46,7 @@ function myFunction(x) {
 			<div class="row">
 				<div class="col-md-12">
 					
-					<a class="navbar-brand" href="index.html">SSPLAT News Website</a>		
+					<a class="navbar-brand" href="index.php">SSPLAT News Website</a>		
 				</div>
 			</div>
 		</div>
@@ -58,16 +58,17 @@ function myFunction(x) {
 
         <div id="fh5co-board" data-columns>
         	<?php
+//API key
 
-$api_url = 'http://newsapi.org/v2/everything?q=bitcoin&from=2020-09-02&sortBy=publishedAt&apiKey=0192cd42fd5643c7ae3ccfdc4d8f6fc8';
+$api_url = 'http://newsapi.org/v2/everything?q=bitcoin&from=2020-09-02&sortBy=publishedAt&apiKey=0192cd42fd5643c7ae3ccfdc4d8f6fc8';  
 
-// Read JSON file
+//  Read JSON file
 $json_data = file_get_contents($api_url);
 
-// Decode JSON data into PHP array
-$response_data = json_decode($json_data);
+//  Decode JSON data into PHP array
+$response_data = json_decode($json_data);   
 
-// All user data exists in 'data' object
+//  All user data exists in 'data' object 
 $user_data = $response_data->articles;
 
 foreach ($user_data as $user) {
@@ -76,15 +77,25 @@ foreach ($user_data as $user) {
 ?>
 
         	<div class="item">
+        		<!-- whole as a hyperlink--> 
         		<a href="<?php echo $user->url; ?>"  target="_blank">
+        			<!--  get image link--> 
         		<div class="animate-box">
 	        		<img src="<?php echo $user->urlToImage; ?>" alt="No image available">
         		</div>
+        		<!-- get title and content from the json file--> 
         		<div class="fh5co-desc"><div style="color:black;font-weight: bold;font-size: 20px;"><?php echo $user->title; ?></div><div style="color: rgb(88,88,88);text-align: justify;"><?php echo $user->content; ?></div></div>
         		</a>
-        		<div style="margin-left: 20px;margin-right: 20px">        		<a href= "whatsapp://send?text=<?php echo $user->url; ?>"  data-action="share/whatsapp/share" target="_blank"><i class="fa fa-whatsapp"></i></a>
-</div>
-        		<p class="fh5co-social-icons" style="margin-left: 20px;margin-right: 20px"><i onclick="myFunction(this)" class="fa fa-thumbs-up"></i><i style="margin-left: 190px" class="fa fa-comment-o" aria-hidden="true"></i></p>
+        		<!-- Like button--> 
+        		
+        		<p class="fh5co-social-icons" style="margin-left: 20px;margin-right: 20px"><i onclick="myFunction(this)" style="margin-right: 10px" class="fa fa-thumbs-up"></i>
+        			<!-- comment box--> 
+        			<input type="text" placeholder="Comment box" style="padding: 6px 10px;  display: inline-block;  margin-right: 5px; border: 1px solid #ccc;  border-radius: 4px;box-sizing: border-box;">
+        			<!-- comment icon--> 
+        			<i class="fa fa-comment-o" aria-hidden="true"></i></p>
+        			<!-- share orignal link on whatsapp--> 
+        			<div style="margin-left: 20px;margin-right: 20px;float : right;"><a href= "whatsapp://send?text=<?php echo $user->url; ?>"  data-action="share/whatsapp/share" target="_blank"><i class="fa fa-whatsapp"></i></a></div>
+
 
         	</div>
         	<?php
